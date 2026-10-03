@@ -53,7 +53,7 @@ A **long-polling Telegram bot** that lets you create Cloudflare **CNAME** record
 ## 🎬 Live Flow Preview
 
 <div align="center">
-  <img src="success.png" alt="Cloudflare DNS Telegram Bot demo" width="360" />
+  <img src="assets/success.png" alt="Cloudflare DNS Telegram Bot demo" width="360" />
 </div>
 
 <div align="center">
