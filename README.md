@@ -1,12 +1,13 @@
 <div align="center">
 
+<!-- Animated capsule banner -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0ea5e9,100:8b5cf6&height=140&section=header&text=Cloudflare%20DNS%20Bot&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Manage%20DNS%20from%20Telegram%2C%20not%20the%20dashboard&descAlignY=58&descSize=16" alt="banner" />
+
 <!-- Animated typing banner -->
 <a href="https://github.com/realximanta/cf-telegram-bot">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=3500&pause=800&color=38BDF8&center=true&vCenter=true&multiline=true&repeat=true&width=720&height=100&lines=Cloudflare+DNS+Manager;Telegram+Bot+%E2%80%A2+Long+Polling;Zero-Dashboard+DNS+Edits+%F0%9F%9A%80" alt="Typing SVG" />
 </a>
 
-<!-- Animated capsule banner -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0ea5e9,100:8b5cf6&height=140&section=header&text=Cloudflare%20DNS%20Bot&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Manage%20DNS%20from%20Telegram%2C%20not%20the%20dashboard&descAlignY=58&descSize=16" alt="banner" />
 
 <!-- Badges (some are dynamic/animated) -->
 <p>
