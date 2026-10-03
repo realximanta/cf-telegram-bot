@@ -5,11 +5,8 @@
 
 <!-- Animated typing banner -->
 <a href="https://github.com/realximanta/cf-telegram-bot">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=3500&pause=800&color=38BDF8&center=true&vCenter=true&multiline=true&repeat=true&width=720&height=100&lines=Cloudflare+DNS+Manager;Telegram+Bot+%E2%80%A2+Long+Polling;Zero-Dashboard+DNS+Edits+%F0%9F%9A%80" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=3500&pause=800&color=38BDF8&center=true&vCenter=true&multiline=true&repeat=true&width=720&height=100&lines=Cloudflare+DNS+Manager;Telegram+Bot+%E2%80%A2+Long+Polling+%F0%9F%9A%80" alt="Typing SVG" />
 </a>
-
-
-
 
 <!-- Badges (some are dynamic/animated) -->
 <p>
