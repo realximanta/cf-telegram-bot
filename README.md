@@ -11,16 +11,13 @@
 <!-- Badges (some are dynamic/animated) -->
 <p>
   <a href="https://github.com/realximanta/cf-telegram-bot/stargazers">
-    <img alt="Stars" src="https://img.shields.io/github/stars/realximanta/cf-telegram-bot?style=for-the-badge&logo=github&color=38bdf8&labelColor=0f172a" />
+    <img alt="Stars" src="https://badgen.net/github/stars/realximanta/cf-telegram-bot?color=38bdf8&icon=github&scale=1.2" />
   </a>
   <a href="https://github.com/realximanta/cf-telegram-bot/network/members">
-    <img alt="Forks" src="https://img.shields.io/github/forks/realximanta/cf-telegram-bot?style=for-the-badge&logo=github&color=8b5cf6&labelColor=0f172a" />
-  </a>
-  <a href="https://github.com/realximanta/cf-telegram-bot/issues">
-    <img alt="Issues" src="https://img.shields.io/github/issues/realximanta/cf-telegram-bot?style=for-the-badge&logo=github&color=ef4444&labelColor=0f172a" />
+    <img alt="Forks" src="https://badgen.net/github/forks/realximanta/cf-telegram-bot?color=8b5cf6&icon=github&scale=1.2" />
   </a>
   <a href="https://github.com/realximanta/cf-telegram-bot/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/github/license/realximanta/cf-telegram-bot?style=for-the-badge&color=22c55e&labelColor=0f172a" />
+    <img alt="License" src="https://badgen.net/github/license/realximanta/cf-telegram-bot?color=22c55e&icon=github&scale=1.2" />
   </a>
 </p>
 
