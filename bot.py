@@ -1,13 +1,3 @@
-"""
-Cloudflare DNS Manager — Telegram Bot
--------------------------------------
-Long-polling Telegram bot to create Cloudflare DNS records (CNAME)
-directly from Telegram. Includes a lightweight HTTP health endpoint
-so the process stays alive on Render free tier (paired with UptimeRobot).
-
-Compatible with Python 3.11 – 3.14 and python-telegram-bot >= 21.6
-"""
-
 import asyncio
 import logging
 import os
@@ -87,12 +77,32 @@ def is_authorized(update: Update) -> bool:
 
 
 async def cf_get_zones(session: aiohttp.ClientSession) -> list:
-    url = f"{CF_API}/zones?per_page=50"
-    async with session.get(url, headers=CF_HEADERS) as r:
-        data = await r.json()
-    if not data.get("success"):
-        raise RuntimeError(data.get("errors") or "Cloudflare API error")
-    return data["result"]
+    """Fetch all Cloudflare zones across every available page.
+
+    The previous implementation only read the first page of results, which meant
+    users with more than 50 zones would see an incomplete list in the Telegram UI.
+    """
+    zones: list[dict] = []
+    page = 1
+
+    while True:
+        url = f"{CF_API}/zones?per_page=100&page={page}"
+        async with session.get(url, headers=CF_HEADERS) as r:
+            data = await r.json()
+
+        if not data.get("success"):
+            raise RuntimeError(data.get("errors") or "Cloudflare API error")
+
+        page_zones = data.get("result") or []
+        zones.extend(page_zones)
+
+        result_info = data.get("result_info") or {}
+        total_pages = int(result_info.get("total_pages") or 1)
+        if page >= total_pages or not page_zones:
+            break
+        page += 1
+
+    return zones
 
 
 async def cf_create_cname(
