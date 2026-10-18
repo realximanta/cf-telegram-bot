@@ -28,18 +28,18 @@
   <img alt="Render" src="https://img.shields.io/badge/Render-Free%20Tier-46E3B7?style=for-the-badge&logo=render&logoColor=white&labelColor=0f172a" />
 </p>
 
-<!-- Animated divider -->
-<img src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake-dark.svg" width="100%" alt="snake animation" />
-
 </div>
 
 ---
 
 ## ✨ What is this?
 
-A **long-polling Telegram bot** that lets you create Cloudflare **CNAME** records from Telegram — no more opening the heavy Cloudflare dashboard on prepaid mobile data.
+A **long-polling Telegram bot** that lets you create, inspect, and delete Cloudflare DNS records from Telegram — no more opening the heavy Cloudflare dashboard on prepaid mobile data.
 
 - 🎯 **Interactive flow** — inline buttons list every domain in your Cloudflare account
+- 📋 **Browse records** — paginated record list with per-record detail view
+- 🟠 **Proxy toggle** — flip the orange cloud on or off for any proxiable record
+- 🗑 **Safe deletes** — every deletion requires an explicit confirmation tap
 - 🔒 **Locked to you** — only whitelisted Telegram chat IDs can use it
 - 💸 **Data-cheap** — a full DNS change uses **< 1 KB** vs **2–5 MB** on the web UI
 - 🩺 **Self keep-alive** — ships a `/health` endpoint for Render + UptimeRobot
@@ -57,10 +57,10 @@ A **long-polling Telegram bot** that lets you create Cloudflare **CNAME** record
 
 ```text
 You:  /cname
-Bot:  📝 Step 1/3 — Send the subdomain name. Example: ximanta
+Bot:  📝 Step 1/4 — Send the subdomain you want to create. Example: ximanta
 
 You:  ximanta
-Bot:  🌐 Step 2/3 — Pick the full domain for ximanta:
+Bot:  🌐 Step 2/4 — Pick the domain for ximanta:
       [ ximanta.ximanta.xyz ]
       [ ximanta.ximanta.space ]
       [ ximanta.dev-ximanta.site ]
@@ -68,15 +68,21 @@ Bot:  🌐 Step 2/3 — Pick the full domain for ximanta:
       [ ❌ Cancel ]
 
 You:  (taps ximanta.ximanta.xyz)
-Bot:  🎯 Step 3/3 — Selected: ximanta.ximanta.xyz
+Bot:  🎯 Step 3/4 — Selected: ximanta.ximanta.xyz
       Now send the target hostname. Example: realximanta.github.io
 
 You:  realximanta.github.io
+Bot:  🟠 Step 4/4 — Proxy this record through Cloudflare?
+      [ 🟠 Proxied — orange cloud ]
+      [ ⚪ DNS only — grey cloud ]
+      [ ❌ Cancel ]
+
+You:  (taps ⚪ DNS only)
 Bot:  ✅ DNS record created successfully!
       • Domain: ximanta.ximanta.xyz
       • Type:   CNAME
       • Target: realximanta.github.io
-      • Proxied: False
+      • Proxied: No
       • TTL:     Auto
 ```
 
@@ -137,6 +143,8 @@ python bot.py
 4. Zone Resources: restrict to the specific zones you want the bot to touch.
 5. Copy the token.
 
+> **Why both permissions?** `Zone:Zone:Read` lets the bot list your domains; `Zone:DNS:Edit` lets it create, update, and delete records. The bot never needs account-level permissions.
+
 ### 3. Deploy to Render (free)
 
 1. Push the repo to your GitHub (fork already does this).
@@ -163,12 +171,56 @@ Render's free tier sleeps after ~15 minutes of inactivity.
 
 ## 📖 Commands
 
-| Command   | Description                     |
-| --------- | ------------------------------- |
-| `/start`  | Show the help message           |
-| `/help`   | Same as `/start`                |
-| `/cname`  | Start the CNAME creation flow   |
-| `/cancel` | Abort the current flow          |
+| Command   | Description                                      |
+| --------- | ------------------------------------------------ |
+| `/start`  | Show the help message                            |
+| `/help`   | Same as `/start`                                 |
+| `/cname`  | Create a CNAME record (4-step flow)              |
+| `/list`   | Browse a zone, inspect records, toggle proxy     |
+| `/delete` | Pick a zone and delete a record with confirmation |
+| `/cancel` | Abort the current `/cname` flow                  |
+
+---
+
+## 🗂 Managing existing records
+
+### Browse with `/list`
+
+1. Pick a domain from the inline keyboard.
+2. Records are shown **8 per page**, with `‹ Prev` / `Next ›` navigation.
+3. Tap any record to open its detail view:
+   - **Name, type, content, TTL, record ID**
+   - **🟠 Enable / Disable proxy** — only shown when the record is proxiable
+     (A, AAAA, and CNAME records; not TXT, MX, or NS)
+   - **🗑 Delete record**
+   - **‹ Back to list**
+
+### Delete with `/delete` or from `/list`
+
+Both paths reach the same confirmation screen:
+
+```text
+🗑 Delete this record?
+━━━━━━━━━━━━━━━━━━━━━━
+• Name:    old.example.com
+• Type:    CNAME
+• Content: old-target.example.net
+
+This cannot be undone.
+
+[ ✅ Yes, delete ]  [ ↩️ No, go back ]
+```
+
+Nothing is deleted until you tap **Yes, delete**. After deletion the list refreshes automatically.
+
+### Proxy toggle
+
+The orange cloud can be flipped in two places:
+
+- **During `/cname`** — Step 4/4 asks whether the new record should be proxied.
+- **After creation** — open any proxiable record from `/list` and tap the toggle.
+
+Cloudflare's `PATCH /zones/{zone_id}/dns_records/{record_id}` updates only the `proxied` field, so the rest of the record is untouched.
 
 ---
 
@@ -176,13 +228,23 @@ Render's free tier sleeps after ~15 minutes of inactivity.
 
 ```text
 cf-telegram-bot/
-├── bot.py               # Main bot + health server
-├── requirements.txt     # Python dependencies
-├── render.yaml          # Render Blueprint
-├── .env.example         # Env template
+├── bot.py                 # Main bot: handlers, Cloudflare client, health server
+├── requirements.txt       # Python dependencies
+├── render.yaml            # Render Blueprint
+├── .env.example           # Env template
 ├── .gitignore
-└── README.md
+├── README.md
+├── index.html             # GitHub Pages landing page
+├── 404.html
+├── manifest.webmanifest
+├── robots.txt
+├── sitemap.xml
+├── CNAME
+└── assets/                # Landing page images and icons
 ```
+
+`bot.py` is intentionally a single module. It is organised into clear sections:
+config → errors → Cloudflare API → validation/formatting → UI builders → command handlers → `/cname` conversation → `/list` and `/delete` callbacks → health server → bootstrap.
 
 ---
 
@@ -191,6 +253,9 @@ cf-telegram-bot/
 - The bot **only responds** to chat IDs listed in `ALLOWED_CHAT_IDS`.
 - Scope your Cloudflare token to specific zones — never use a Global API Key.
 - `.env` is ignored by git; secrets live only in Render's environment.
+- **Destructive actions are confirmed.** Deletion requires a second explicit tap.
+- **Stale buttons cannot mutate state.** Every inline keyboard carries a short per-session token; a button from an old `/list` session is rejected with “This menu expired.”
+- **All user-supplied values are HTML-escaped** before being sent back to Telegram, so a record named `foo_bar` or a target containing `*` cannot break message formatting.
 
 ---
 
@@ -206,17 +271,32 @@ cp .env.example .env
 python bot.py
 ```
 
+The health endpoint is available at `http://localhost:8080/health` while the bot is running.
+
+---
+
+## ⚙️ How it works
+
+- **Long polling**, no webhook. The bot calls `getUpdates` and processes updates in-process. No public URL is required for Telegram itself.
+- **One shared `aiohttp.ClientSession`** for all Cloudflare calls, created in `post_init` and closed in `post_shutdown`. This reuses TLS connections and avoids a handshake per DNS operation.
+- **15-second timeout** on every Cloudflare request (`connect=5s`), instead of aiohttp's 5-minute default.
+- **Pagination is followed**, not truncated. Zones and DNS records are read page by page using `result_info.total_pages`. Record lists are capped at 1,000 entries with a visible warning.
+- **Errors are classified.** Cloudflare API errors (`success: false`) produce a readable bullet list; network timeouts produce “Could not reach Cloudflare.” A non-JSON 429/502/503 body produces an HTTP status message instead of a JSON decoder traceback.
+- **HTML parse mode** with explicit escaping, rather than legacy Markdown or MarkdownV2's long escape list.
+
 ---
 
 ## 🗺️ Roadmap
 
 - [x] `/cname` creation
 - [ ] `/a`, `/aaaa`, `/txt`, `/mx` records
-- [ ] `/list` records per zone
-- [ ] `/delete` with confirmation
-- [ ] Proxy toggle (orange cloud on/off)
+- [x] `/list` records per zone
+- [x] `/delete` with confirmation
+- [x] Proxy toggle (orange cloud on/off)
 
-PRs welcome — see [CONTRIBUTING](#-contributing).
+The remaining item — multi-type record creation — is the next milestone. The Cloudflare helpers and validation layer are already generic enough to support it; only the conversation states and per-type validation need to be added.
+
+PRs welcome — see [Contributing](#-contributing).
 
 ---
 
@@ -227,6 +307,8 @@ PRs welcome — see [CONTRIBUTING](#-contributing).
 3. Commit: `git commit -m "feat: add awesome thing"`.
 4. Push: `git push origin feat/awesome-thing`.
 5. Open a Pull Request.
+
+Please keep changes surgical: one feature per PR, no unrelated refactors, and update this README when behaviour changes.
 
 ---
 
