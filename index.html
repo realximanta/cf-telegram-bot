@@ -6,8 +6,8 @@
 <meta name="google-site-verification" content="1Nlc6jrvNMqfM6i1SQxthbfI8ABENo0CTrSNPQBosBI" />
 
 <title>Cloudflare DNS Manager — Telegram Bot | cfdnsbot.ximanta.xyz</title>
-<meta name="description" content="Free Telegram bot to create Cloudflare DNS CNAME records from your phone. Save mobile data — under 1 KB per DNS change. MIT licensed." />
-<meta name="keywords" content="cloudflare telegram bot, cloudflare dns bot, manage cloudflare dns telegram, cloudflare cname telegram, dns manager bot, telegram bot cloudflare api, cloudflare dns without dashboard, free dns telegram bot, render telegram bot" />
+<meta name="description" content="Free Telegram bot to create, inspect, and delete Cloudflare DNS records from your phone. Toggle the orange cloud, browse zones, and save mobile data — under 1 KB per DNS change. MIT licensed." />
+<meta name="keywords" content="cloudflare telegram bot, cloudflare dns bot, manage cloudflare dns telegram, cloudflare cname telegram, dns manager bot, telegram bot cloudflare api, cloudflare dns without dashboard, free dns telegram bot, render telegram bot, cloudflare proxy toggle" />
 <meta name="author" content="realximanta" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#ffffff" />
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Cloudflare DNS Manager — Telegram Bot" />
 <meta property="og:title" content="Cloudflare DNS Manager — Telegram Bot" />
-<meta property="og:description" content="Create Cloudflare CNAME records right from Telegram. Free, open-source, data-friendly — under 1 KB per DNS change." />
+<meta property="og:description" content="Create, inspect, and delete Cloudflare DNS records right from Telegram. Free, open-source, data-friendly — under 1 KB per DNS change." />
 <meta property="og:url" content="https://cfdnsbot.ximanta.xyz/" />
 <meta property="og:image" content="https://cfdnsbot.ximanta.xyz/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
@@ -25,7 +25,7 @@
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Cloudflare DNS Manager — Telegram Bot" />
-<meta name="twitter:description" content="Create Cloudflare CNAME records right from Telegram. Free, open-source, and data-friendly." />
+<meta name="twitter:description" content="Create, inspect, and delete Cloudflare DNS records right from Telegram. Free, open-source, and data-friendly." />
 <meta name="twitter:image" content="https://cfdnsbot.ximanta.xyz/assets/og-image.png" />
 
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -45,7 +45,7 @@
       "name": "Cloudflare DNS Manager — Telegram Bot",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any (server-side)",
-      "description": "A free, open-source Telegram bot to create Cloudflare DNS CNAME records from your phone.",
+      "description": "A free, open-source Telegram bot to create, inspect, delete, and manage Cloudflare DNS records from your phone.",
       "url": "https://cfdnsbot.ximanta.xyz/",
       "codeRepository": "https://github.com/realximanta/cf-telegram-bot",
       "programmingLanguage": "Python",
@@ -76,7 +76,7 @@
         { "@type": "Question", "name": "Is the Cloudflare DNS Telegram bot free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The bot is MIT-licensed, and the recommended hosting stack — Render free tier plus UptimeRobot free tier — costs nothing." } },
         { "@type": "Question", "name": "How much mobile data does it use?", "acceptedAnswer": { "@type": "Answer", "text": "A full DNS change via Telegram uses under 1 KB, compared to 2–5 MB for opening the Cloudflare web dashboard once." } },
         { "@type": "Question", "name": "Can other people use my bot?", "acceptedAnswer": { "@type": "Answer", "text": "No. The bot only responds to Telegram chat IDs listed in the ALLOWED_CHAT_IDS environment variable." } },
-        { "@type": "Question", "name": "Which record types are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Currently CNAME. A, AAAA, TXT, MX and other types are on the roadmap." } }
+        { "@type": "Question", "name": "What DNS operations are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Currently you can create CNAME records, browse and paginate through existing records, toggle the Cloudflare proxy (orange cloud) on or off, and delete records with a confirmation step." } }
       ]
     }
   ]
@@ -409,7 +409,7 @@
   <div class="hero-grid" aria-hidden="true"></div>
   <span class="eyebrow"><span class="dot"></span> MIT licensed &middot; Python 3.11+ &middot; Render free tier</span>
   <h1>Cloudflare DNS Manager<br/><span class="grad">as a Telegram bot.</span></h1>
-  <p class="lead">Create Cloudflare CNAME records from Telegram. No dashboard, no heavy pages, no wasted mobile data — a full DNS change uses under 1&nbsp;KB instead of 2–5&nbsp;MB.</p>
+  <p class="lead">Create, inspect, and delete Cloudflare DNS records from Telegram. Toggle the orange cloud, browse zones, and skip the heavy dashboard — a full DNS change uses under 1&nbsp;KB instead of 2–5&nbsp;MB.</p>
   <div class="hero-actions">
     <a class="btn primary" href="https://github.com/realximanta/cf-telegram-bot" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.19 1.78 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.9-.38 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>
@@ -442,7 +442,7 @@
 
     <section id="overview" class="reveal">
       <h2>Overview</h2>
-      <p>Cloudflare's dashboard is great on a laptop and painful on a phone — especially on prepaid data. This bot replaces the whole workflow with a Telegram conversation. You type <code>/cname</code>, choose a domain from a button, send the target, and Cloudflare creates the record. That's it.</p>
+      <p>Cloudflare's dashboard is great on a laptop and painful on a phone — especially on prepaid data. This bot replaces the whole workflow with a Telegram conversation. You type <code>/cname</code>, choose a domain, send the target, and pick a proxy setting. You can also run <code>/list</code> to browse records, flip the orange cloud on any proxiable record, or delete records with a two-step confirmation.</p>
       <p>The project is open source under the MIT license, ships with a <code>render.yaml</code> for one-click deploys, and exposes a <code>/health</code> endpoint so a free UptimeRobot monitor keeps it awake around the clock.</p>
     </section>
 
@@ -460,9 +460,9 @@
           <p>Only chat IDs listed in <code>ALLOWED_CHAT_IDS</code> get a response. Everyone else is ignored.</p>
         </div>
         <div class="card">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 12h4M15 12h2"/></svg></div>
-          <h3>Inline button picker</h3>
-          <p>Choose the exact zone from buttons built live from your Cloudflare account — no typing domain names.</p>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 0 1 9-9"/></svg></div>
+          <h3>Complete DNS control</h3>
+          <p>Create CNAMEs, browse paginated record lists, toggle the orange cloud, and safely delete records with confirmation.</p>
         </div>
         <div class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
@@ -472,7 +472,7 @@
         <div class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7M21 3l-9 9M5 21h14a2 2 0 0 0 2-2v-7M3 10V5a2 2 0 0 1 2-2h7"/></svg></div>
           <h3>Extensible</h3>
-          <p>Adding <code>/a</code>, <code>/txt</code>, <code>/mx</code>, and delete flows is a matter of one handler each.</p>
+          <p>Adding <code>/a</code>, <code>/txt</code>, <code>/mx</code>, and more is a matter of one handler each.</p>
         </div>
         <div class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.7-1.5A4.5 4.5 0 0 0 6.5 19z"/></svg></div>
@@ -491,24 +491,30 @@
           <span class="title">telegram — @your_cf_bot</span>
         </div>
         <pre><span class="c">You  </span> <span class="k">/cname</span>
-<span class="c">Bot  </span> Step 1/3 — Send the subdomain name you want to create.
+<span class="c">Bot  </span> Step 1/4 — Send the subdomain name you want to create.
        Example: <span class="s">mysub</span>
 
 <span class="c">You  </span> mysub
-<span class="c">Bot  </span> Step 2/3 — Pick the full domain for mysub:
+<span class="c">Bot  </span> Step 2/4 — Pick the domain for mysub:
        [ mysub.example.com ]   [ mysub.example.net ]
        [ mysub.example.org ]   [ Cancel ]
 
 <span class="c">You  </span> ( taps mysub.example.com )
-<span class="c">Bot  </span> Step 3/3 — Selected: mysub.example.com
+<span class="c">Bot  </span> Step 3/4 — Selected: mysub.example.com
        Now send the target hostname. Example: user.github.io
 
 <span class="c">You  </span> user.github.io
+<span class="c">Bot  </span> Step 4/4 — Proxy this record through Cloudflare?
+       [ 🟠 Proxied — orange cloud ]
+       [ ⚪ DNS only — grey cloud ]
+       [ ❌ Cancel ]
+
+<span class="c">You  </span> ( taps ⚪ DNS only )
 <span class="c">Bot  </span> DNS record created successfully.
        Domain:  mysub.example.com
        Type:    CNAME
        Target:  user.github.io
-       Proxied: Yes    TTL: Auto</pre>
+       Proxied: No    TTL: Auto</pre>
       </div>
     </section>
 
@@ -559,7 +565,7 @@ python bot.py</pre>
       <details><summary>Is this really free to run?</summary><p>Yes. The code is MIT licensed, and the recommended stack — Render's free web service plus a free UptimeRobot monitor — costs nothing.</p></details>
       <details><summary>How much mobile data does it actually use?</summary><p>A full DNS change over Telegram is under 1 KB round-trip. Opening the Cloudflare dashboard once is 2–5 MB of HTML, JS, and fonts.</p></details>
       <details><summary>Can somebody else use my bot if they find it?</summary><p>No. The bot ignores every chat ID that isn't listed in <code>ALLOWED_CHAT_IDS</code>. Only you get a response.</p></details>
-      <details><summary>Which record types are supported today?</summary><p>CNAME. A, AAAA, TXT, MX, SRV, and delete flows are on the roadmap.</p></details>
+      <details><summary>What DNS operations are supported today?</summary><p>Create CNAME records, browse zones with paginated record lists, toggle the Cloudflare proxy (orange cloud) on or off, and delete records with a confirmation step. A, AAAA, TXT, MX, and SRV creation are on the roadmap.</p></details>
       <details><summary>Why do I need UptimeRobot?</summary><p>Render's free tier sleeps after roughly 15 minutes of inactivity. UptimeRobot pings the bot's <code>/health</code> endpoint every 5 minutes to keep it hot.</p></details>
     </section>
 
