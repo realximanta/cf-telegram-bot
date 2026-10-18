@@ -79,9 +79,9 @@ Bot:  🟠 Step 4/4 — Proxy this record through Cloudflare?
 
 You:  (taps ⚪ DNS only)
 Bot:  ✅ DNS record created successfully!
-      • Domain:  ximanta.ximanta.xyz
-      • Type:    CNAME
-      • Target:  realximanta.github.io
+      • Domain: ximanta.ximanta.xyz
+      • Type:   CNAME
+      • Target: realximanta.github.io
       • Proxied: No
       • TTL:     Auto
 ```
