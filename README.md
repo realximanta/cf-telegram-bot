@@ -28,9 +28,6 @@
   <img alt="Render" src="https://img.shields.io/badge/Render-Free%20Tier-46E3B7?style=for-the-badge&logo=render&logoColor=white&labelColor=0f172a" />
 </p>
 
-<!-- Animated divider -->
-<img src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake-dark.svg" width="100%" alt="snake animation" />
-
 </div>
 
 ---
@@ -82,9 +79,9 @@ Bot:  🟠 Step 4/4 — Proxy this record through Cloudflare?
 
 You:  (taps ⚪ DNS only)
 Bot:  ✅ DNS record created successfully!
-      • Domain: ximanta.ximanta.xyz
-      • Type:   CNAME
-      • Target: realximanta.github.io
+      • Domain:  ximanta.ximanta.xyz
+      • Type:    CNAME
+      • Target:  realximanta.github.io
       • Proxied: No
       • TTL:     Auto
 ```
