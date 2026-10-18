@@ -76,7 +76,7 @@ Bot:  ✅ DNS record created successfully!
       • Domain: ximanta.ximanta.xyz
       • Type:   CNAME
       • Target: realximanta.github.io
-      • Proxied: Yes
+      • Proxied: False
       • TTL:     Auto
 ```
 
